@@ -145,6 +145,7 @@ class Correlations
 			for(int n = 0 ; n < tr->GetEntries() ; ++n)
 			{
 				tr->GetEntry(n);
+				if(pos.r < rmin_ || pos.r > rmax_ || pos.phi < phimin_ || pos.phi > phimax_ || pos.theta < thetamin_ || pos.theta > thetamax_) {continue;} 
 				MC_phi_theta.fill(pos.phi, pos.theta);
 				RR_r->fill(pos.r, pos.w);
 				rw += pos.w;
@@ -177,6 +178,7 @@ class Correlations
 			for(int n = 0 ; n < tr->GetEntries() ; ++n)
 			{
 				tr->GetEntry(n);
+				if(pos.r < rmin_ || pos.r > rmax_ || pos.phi < phimin_ || pos.phi > phimax_ || pos.theta < thetamin_ || pos.theta > thetamax_) {continue;} 
 				D->fill(pos.phi, pos.theta, pos);
 				dw += pos.w;
 				dww += pos.w*pos.w;
@@ -365,7 +367,7 @@ class Correlations
 				else if(nb == 4){ xb++; yb++;}
 				int binb = R->getBinByBins(xb, yb);
 				int start;
-				if(bina > 0 && binb > 0 && binb < R->getNumBins() && bina < R->getNumBins())
+				if(bina >= 0 && binb >= 0 && binb < R->getNumBins() && bina < R->getNumBins())
 				{
 					start = time(nullptr);	
 					calculateDD(bina, binb);
